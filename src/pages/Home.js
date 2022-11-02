@@ -8,6 +8,11 @@ import Container from 'react-bootstrap/Container';
 const Home = () => {
   return (
     <>
+      <h2 style={{paddingLeft: '25px'}}>Newsfeed by-  
+        <span style={{fontStyle:'italic', color: 'orange'}}>
+          https://newsapi.org/
+        </span>
+      </h2>
       <Container fluid='md'>
         <SearchBar/>
         <NewsContainer/>

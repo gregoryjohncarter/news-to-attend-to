@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 // import { useStoreContext } from "../utils/GlobalState";
 
-// import Article from '../components/Article';
+import Article from '../components/Article';
 import Pagination from '../components/Pagination';
 
 const NewsContainer = () => {
@@ -10,9 +10,8 @@ const NewsContainer = () => {
   
   return (
     <>
-    {/* Map articles
+    {/* Map articles */}
       <Article/>
-    */}
       <Pagination/>
     </>
   );

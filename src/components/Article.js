@@ -6,7 +6,8 @@ import Col from 'react-bootstrap/Col';
 const Article = (props) => {
   return (
     <Row>
-      <Col s={12}>
+      <Col xs={12}>
+        Test
       </Col>
     </Row>
   );

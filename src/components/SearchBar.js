@@ -4,16 +4,20 @@ import Sorting from '../components/Sorting';
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 const SearchBar = () => {
   return (
     <>
       <Row>
-        <Col s={12} m={7}>
-          <div>
-          </div>
+        <Col xs={8}>
+          <Form className='d-flex'>
+            <Form.Control size="lg" type="text" placeholder="Filter by headline"/>
+            <Button variant="dark">✘</Button>
+          </Form>
         </Col>
-        <Col s={12} m={5}>
+        <Col xs={4}>
           <Sorting/>
         </Col>
       </Row>
