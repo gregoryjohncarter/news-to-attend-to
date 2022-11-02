@@ -7,7 +7,14 @@ const Article = (props) => {
   return (
     <Row>
       <Col xs={12}>
-        Test
+        <div className='article'>
+          <h2>
+
+          </h2>
+          <p className='description'>
+
+          </p>
+        </div>
       </Col>
     </Row>
   );

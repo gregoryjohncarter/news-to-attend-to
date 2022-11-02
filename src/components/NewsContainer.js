@@ -7,7 +7,7 @@ import Pagination from '../components/Pagination';
 const NewsContainer = () => {
   // const [state, dispatch] = useStoreContext();
   // const { newsAPIData, currentPage } = state;
-  
+
   return (
     <>
     {/* Map articles */}
