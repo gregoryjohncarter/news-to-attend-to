@@ -1,4 +1,5 @@
 import React from 'react';
+import { useStoreContext } from "../utils/GlobalState";
 
 import SearchBar from '../components/SearchBar';
 import NewsContainer from '../components/NewsContainer';
@@ -6,17 +7,26 @@ import NewsContainer from '../components/NewsContainer';
 import Container from 'react-bootstrap/Container';
 
 const Home = () => {
+  const [state, dispatch] = useStoreContext();
 
-  // fetch(`https://newsapi.org/v2/everything?q=${searchQuery}&sortBy=${sorting === 'recent' ? 'publishedAt' : 'relevancy'}&language=en&apiKey=${apiKey}`)
-  
-  async function fetchNews(searchQuery) {
+  const fetchNews = (searchQuery, sorting) => {
     if (searchQuery) {
       const apiKey = 'e4481f7edf634ba0b3755068bd11dfa9';
-      fetch(`https://newsapi.org/v2/everything?q=${searchQuery}&sortBy=publishedAt&language=en&apiKey=${apiKey}`)
-      .then(response => response.json())
-      .then(json => console.log(json))
+      fetch(`https://newsapi.org/v2/everything?q=${searchQuery}&sortBy=${sorting === 'recent' ? 'publishedAt' : 'relevancy'}&language=en&apiKey=${apiKey}`)
+        .then(response => response.json())
+        .then(json => handleAPIData(json))
+        .catch(error => console.error(error))
     } else {
       return;
+    }
+  }
+
+  const handleAPIData = (json) => {
+    if (json.totalResults > 0) {
+      dispatch({
+        type: 'DATA_STORE',
+        newsAPIData: json.articles
+      });
     }
   }
 

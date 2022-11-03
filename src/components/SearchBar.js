@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useStoreContext } from "../utils/GlobalState";
 
 import Sorting from '../components/Sorting';
 
@@ -9,6 +10,9 @@ import Form from 'react-bootstrap/Form';
 
 const SearchBar = ({ fetchNews }) => {
   const [searchInput, setSearchInput] = useState('');
+
+  const [state, dispatch] = useStoreContext();
+  const { sorting } = state;
 
   return (
     <>
@@ -25,7 +29,7 @@ const SearchBar = ({ fetchNews }) => {
             />
             <Button 
               variant='dark'
-              onClick={() => fetchNews(searchInput)}
+              onClick={() => fetchNews(searchInput, sorting)}
             >
               ↳
             </Button>
