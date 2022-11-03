@@ -21,7 +21,6 @@ const Sorting = () => {
       name='sortingInput'
       value={sorting}
       style={{fontSize:'.9rem'}}
-      default='general'
       className='overflow sorting'
     >
       <option value='all'>All recent</option>

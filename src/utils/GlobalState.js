@@ -10,7 +10,8 @@ const StoreProvider = ({ value = [], ...props }) => {
     currentPage: 1,
     newsAPIData: [],
     totalPages: 1,
-    currentRender: []
+    currentRender: [],
+    filterBy: 'recently'
   });
   // console.log(state);
   return <Provider value={[state, dispatch]} {...props} />;

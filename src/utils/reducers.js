@@ -7,6 +7,11 @@ export const reducer = (state, action) => {
         ...state,
         sorting: action.sortingInput
       };
+    case 'TOGGLE_FILTER_BY':
+      return {
+        ...state,
+        filterBy: action.filterByInput
+      };
     case 'CHANGE_PAGE':
       return {
         ...state,

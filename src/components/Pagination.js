@@ -38,8 +38,8 @@ const Pagination = ({ renderData }) => {
       type: 'CHANGE_PAGE',
       pageInput: value
     });
-    renderData(newsAPIData, value, totalPages);
     checkButtons(value, totalPages);
+    renderData(newsAPIData, value, totalPages);
   }
 
   const onNext = (value) => {
@@ -47,8 +47,8 @@ const Pagination = ({ renderData }) => {
       type: 'NEXT_PAGE',
       pageInput: value
     });
-    renderData(newsAPIData, (value + 1), totalPages);
     checkButtons((value + 1), totalPages);
+    renderData(newsAPIData, (value + 1), totalPages);
   };
 
   const onPrevious = (value) => {
@@ -56,8 +56,8 @@ const Pagination = ({ renderData }) => {
       type: 'PREVIOUS_PAGE',
       pageInput: value
     });
-    renderData(newsAPIData, (value - 1), totalPages);
     checkButtons((value - 1), totalPages);
+    renderData(newsAPIData, (value - 1), totalPages);
   };
   
   return (
