@@ -17,25 +17,21 @@ const SearchBar = ({ fetchNews }) => {
   return (
     <>
       <Row>
-        <Col xs={8}>
-          <Form className='d-flex'>
-            <Form.Control
-              size='lg'
-              type='text'
-              placeholder='Key word, phrase'
-              name='searchInput'
-              value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
-            />
+        <Col xs={7}>
+          <div className='d-flex fetch-news'>
+            <h3 className='btn-heading'>
+              Retrieve articles
+            </h3>
             <Button 
               variant='dark'
               onClick={() => fetchNews(searchInput, sorting)}
+              className='btn-fetch'
             >
               ↳
             </Button>
-          </Form>
+          </div>
         </Col>
-        <Col xs={4}>
+        <Col xs={5}>
           <Sorting/>
         </Col>
       </Row>

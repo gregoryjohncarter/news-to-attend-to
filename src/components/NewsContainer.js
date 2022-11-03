@@ -4,17 +4,18 @@ import { useStoreContext } from "../utils/GlobalState";
 import Article from '../components/Article';
 import Pagination from '../components/Pagination';
 
-const NewsContainer = () => {
+const NewsContainer = ({ renderData }) => {
   const [state, dispatch] = useStoreContext();
-  const { currentPage, totalPages, newsAPIData } = state;
+  const { currentRender } = state;
+  console.log(currentRender)
 
   return (
-    <>
-      {newsAPIData.map((article, index) => {
-        return <Article title={article.title} description={article.description} key={index}/>
+    <div className='news-container'>
+      {currentRender.map((article, index) => {
+        return <Article title={article.title} description={article.description} keyIndex={index}/>
       })}
-      <Pagination/>
-    </>
+      <Pagination renderData={renderData}/>
+    </div>
   );
 };
 

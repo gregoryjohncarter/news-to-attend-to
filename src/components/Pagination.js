@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useStoreContext } from "../utils/GlobalState";
 import usePagination, { DOTS } from "../hooks/usePagination";
 import { nanoid } from 'nanoid'
@@ -7,20 +7,20 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 
-const Pagination = () => {
+const Pagination = ({ renderData }) => {
   const [state, dispatch] = useStoreContext();
-  const { currentPage, totalPages } = state;
+  const { newsAPIData, currentPage, totalPages } = state;
 
   const paginationRange = usePagination({
     currentPage,
     totalPages
   });
 
-  const [disabledLeft, setDisabledLeft] = useState();
-  const [disabledRight, setDisabledRight] = useState();
+  const [disabledLeft, setDisabledLeft] = useState(true);
+  const [disabledRight, setDisabledRight] = useState(false);
 
   // conditionals for when the next and previous buttons are enabled/disabled
-  const buttonsEnabled = useEffect(() => {
+  const checkButtons = (currentPage, totalPages) => {
     if (currentPage === totalPages) {
       setDisabledRight(true);
     } else {
@@ -31,27 +31,33 @@ const Pagination = () => {
     } else {
       setDisabledLeft(false);
     }
-  }, [currentPage]);
-
-  const onPageChange = (number) => {
-    dispatch({
-      type: 'CHANGE_PAGE',
-      currentPage: number
-    });
   }
 
-  const onNext = () => {
+  const onPageChange = (value) => {
+    dispatch({
+      type: 'CHANGE_PAGE',
+      pageInput: value
+    });
+    renderData(newsAPIData, value, totalPages);
+    checkButtons(value, totalPages);
+  }
+
+  const onNext = (value) => {
     dispatch({
       type: 'NEXT_PAGE',
-      currentPage: currentPage + 1
+      pageInput: value
     });
+    renderData(newsAPIData, (value + 1), totalPages);
+    checkButtons((value + 1), totalPages);
   };
 
-  const onPrevious = () => {
+  const onPrevious = (value) => {
     dispatch({
       type: 'PREVIOUS_PAGE',
-      currentPage: currentPage - 1
+      pageInput: value
     });
+    renderData(newsAPIData, (value - 1), totalPages);
+    checkButtons((value - 1), totalPages);
   };
   
   return (
@@ -68,7 +74,7 @@ const Pagination = () => {
               variant='light'
               className='arrow-btn left'
               aria-label='Goto previous page'
-              onClick={onPrevious}
+              onClick={() => onPrevious(currentPage)}
               disabled={disabledLeft}
             >
               &lt;
@@ -87,7 +93,7 @@ const Pagination = () => {
             }
             return (
               <li
-                key={pageNumber}
+                key={key}
                 className='pagination-item'
                 aria-current={pageNumber === currentPage ? "page" : "false"}
               >
@@ -96,6 +102,7 @@ const Pagination = () => {
                   className=''
                   aria-label={`Goto page ${pageNumber}`}
                   onClick={() => onPageChange(pageNumber)}
+                  style={pageNumber === currentPage ? {backgroundColor:'azure', borderRadius: '30px', padding: '10px'} : {}}
                 >
                   {pageNumber}
                 </Button>
@@ -109,7 +116,7 @@ const Pagination = () => {
               variant='light'
               className='arrow-btn right'
               aria-label='Goto next page'
-              onClick={onNext}
+              onClick={() => onNext(currentPage)}
               disabled={disabledRight}
             >
               &gt;

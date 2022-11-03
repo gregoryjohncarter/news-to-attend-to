@@ -10,22 +10,32 @@ export const reducer = (state, action) => {
     case 'CHANGE_PAGE':
       return {
         ...state,
-        currentPage: action.number
+        currentPage: action.pageInput
       };
     case 'NEXT_PAGE':
       return {
         ...state,
-        currentPage: action.currentPage + 1
+        currentPage: action.pageInput + 1
       };
     case 'PREVIOUS_PAGE':
       return {
         ...state,
-        currentPage: action.currentPage - 1
+        currentPage: action.pageInput - 1
+      };
+    case 'SET_TOTAL_PAGES':
+      return {
+        ...state,
+        totalPages: action.setTotalPages
       };
     case 'DATA_STORE':
       return {
         ...state,
         newsAPIData: action.newsAPIData
+      };
+    case 'DATA_TO_RENDER':
+      return {
+        ...state,
+        currentRender: action.dataToRender
       };
     default:
       return state;

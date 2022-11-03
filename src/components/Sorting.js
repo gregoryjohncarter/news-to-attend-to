@@ -21,9 +21,17 @@ const Sorting = () => {
       name='sortingInput'
       value={sorting}
       style={{fontSize:'.9rem'}}
+      default='general'
+      className='overflow sorting'
     >
-      <option value='recent'>Recent</option>
-      <option value='relevant'>Relevant</option>
+      <option value='all'>All recent</option>
+      <option value='business' className='overflow'>Business</option>
+      <option value='entertainment' className='overflow'>Entertainment</option>
+      <option value='general'>General</option>
+      <option value='health'>Health</option>
+      <option value='science'>Science</option>
+      <option value='sports'>Sports</option>
+      <option value='technology' className='overflow'>Technology</option>
     </Form.Select>
   );
 };
