@@ -2,6 +2,10 @@ body {
   background-color: darkslategray !important;
 }
 
+a {
+  display: block;
+}
+
 .newsfeed-title {
   padding-left: 25px;
   font-family: sans-serif;
@@ -25,12 +29,31 @@ body {
   background-color: white;
   border-radius: 7px 7px;
   margin-top: 15px;
+  overflow-x: clip;
 }
 
 .float-right {
-  display: inline-flex;
+  display: flex;
   flex: 1;
   justify-content: flex-end;
+}
+
+.source {
+  padding-right: 25px;
+  font-family: serif;
+  font-weight: bold;
+  color:steelblue;
+  margin-bottom: 15px;
+}
+
+.article {
+  background-color: #dfdfdf;
+  border-top-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.alternate {
+  
 }
 
 .inner-news-container {
@@ -43,8 +66,13 @@ body {
   padding-left: 10px;
   padding-right: 10px;
   background-color: #f4f4f4;
-  text-align: end;
+  text-align: left;
   border-radius: 5px 5px;
+}
+
+.description {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .filter-area {
@@ -53,6 +81,13 @@ body {
 
 .filter-by {
   font-size: 15px;
+}
+
+.trim {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 28ch;
+  max-height: 3ch;
 }
 
 .padding-right {

@@ -57,7 +57,14 @@ const NewsContainer = ({ renderData }) => {
       <div className='inner-news-container'>
         <div className='inner-container'>
         {currentRender.map((article, index) => {
-          return <Article title={article.title} description={article.description} keyIndex={index}/>
+          return <Article 
+            title={article.title}
+            description={article.description} 
+            url={article.url}
+            publishedAt={article.publishedAt}
+            source={article.source.name}
+            keyIndex={index}
+          />
         })}
         </div>
       </div>
