@@ -38,6 +38,10 @@ a {
   justify-content: flex-end;
 }
 
+.mid {
+  padding: 10px;
+}
+
 .source {
   padding-right: 25px;
   font-family: serif;

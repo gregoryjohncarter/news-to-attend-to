@@ -21,12 +21,11 @@ const Sorting = () => {
       name='sortingInput'
       value={sorting}
       style={{fontSize:'.9rem'}}
-      className='overflow sorting'
+      className='overflow sorting mid'
     >
-      <option value='all'>All recent</option>
+      <option value='general'>General</option>
       <option value='business' className='overflow'>Business</option>
       <option value='entertainment' className='overflow'>Entertainment</option>
-      <option value='general'>General</option>
       <option value='health'>Health</option>
       <option value='science'>Science</option>
       <option value='sports'>Sports</option>

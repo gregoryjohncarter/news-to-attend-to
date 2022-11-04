@@ -11,9 +11,11 @@ const NewsContainer = ({ renderData }) => {
   const [state, dispatch] = useStoreContext();
   const { newsAPIData, currentRender, filterBy, totalPages } = state;
 
+  // filter by text declarations - input & results
   const [filterQuery, setFilterQuery] = useState('');
-  // console.log(filterQuery);
+  const [searchList, setSearchList] = useState([]);
   
+  // change between recent and alphabetical ordering
   const handleFilterBy = (value) => {
     if (value === filterBy) {
       return;
@@ -32,10 +34,30 @@ const NewsContainer = ({ renderData }) => {
     renderData(newsAPIData, 1, totalPages, value);
   }
 
-  // const renderFilterBy = useEffect(() => {
-  //   console.log('test')
-  //   renderData(newsAPIData, 1, totalPages, filterBy);
-  // }, [filterBy])
+  // react hook being used to store a separate, filtered list to state
+  useEffect(() => {
+    if (newsAPIData.length && filterQuery.length) {
+      // first filter to sort out null entries
+      const notNull = newsAPIData.filter((article) => {
+        return article.title !== null && article.description !== null && article.source.name !== null
+      })
+      // then check against the controlled input
+      const results = notNull.filter((article) => {
+        return article.title.toLowerCase().includes(filterQuery.toLowerCase())
+        || article.description.toLowerCase().includes(filterQuery.toLowerCase())
+        || article.source.name.toLowerCase().includes(filterQuery.toLowerCase());
+      })
+      if (filterBy === 'recently') {
+        setSearchList(results);
+      } else {
+        setSearchList(results.slice().sort(function(a, b) {
+          let textA = a.title.toUpperCase();
+          let textB = b.title.toUpperCase();
+          return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+        }));
+      }
+    }
+  }, [newsAPIData, filterQuery, filterBy])
 
   return (
     <div className='news-container'>
@@ -45,7 +67,7 @@ const NewsContainer = ({ renderData }) => {
             <Form.Control 
               size='sm'
               type='text'
-              placeholder='Enter filter term'
+              placeholder='Filter results'
               value={filterQuery}
               onChange={(e) => setFilterQuery(e.target.value)}
               className='filter-by sorting'
@@ -69,19 +91,31 @@ const NewsContainer = ({ renderData }) => {
       </div>
       <div className='inner-news-container'>
         <div className='inner-container'>
-        {currentRender.map((article, index) => {
-          return <Article 
-            title={article.title}
-            description={article.description} 
-            url={article.url}
-            publishedAt={article.publishedAt}
-            source={article.source.name}
-            keyIndex={index}
-          />
-        })}
+          {/* whenever there is a filter query present, prioritize that render */}
+          {filterQuery.length && newsAPIData.length ? searchList.map((article, index) => {
+            return <Article 
+              title={article.title}
+              description={article.description} 
+              url={article.url}
+              publishedAt={article.publishedAt}
+              source={article.source.name}
+              key={index}
+              keyIndex={index}
+            />
+          }) : currentRender.map((article, index) => {
+            return <Article 
+              title={article.title}
+              description={article.description} 
+              url={article.url}
+              publishedAt={article.publishedAt}
+              source={article.source.name}
+              key={index}
+              keyIndex={index}
+            />
+          })}
         </div>
       </div>
-      <Pagination renderData={renderData}/>
+      <Pagination renderData={renderData} combineSearch={filterQuery}/>
     </div>
   );
 };

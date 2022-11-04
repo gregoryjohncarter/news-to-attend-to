@@ -7,9 +7,9 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 
-const Pagination = ({ renderData }) => {
+const Pagination = ({ renderData, combineSearch }) => {
   const [state, dispatch] = useStoreContext();
-  const { newsAPIData, currentPage, totalPages, sortBy } = state;
+  const { newsAPIData, currentPage, totalPages } = state;
 
   const paginationRange = usePagination({
     currentPage,
@@ -81,8 +81,17 @@ const Pagination = ({ renderData }) => {
             </Button>
           </li>
 
-          {/* mid range (page nums.) */}
-          {paginationRange.map((pageNumber) => {
+          {/* when filtering by search, limit to 1 page results */}
+          {combineSearch.length ? (
+            <li
+              key='single'
+              className='pagination-item'
+            >
+              <Button variant='light'>
+                1
+              </Button>
+            </li>
+          ) : ( paginationRange.map((pageNumber) => { /* ELSE mid range w/ updated page nums. */
             const key = nanoid();
             if (pageNumber === DOTS) {
               return (
@@ -99,7 +108,6 @@ const Pagination = ({ renderData }) => {
               >
                 <Button
                   variant='light'
-                  className=''
                   aria-label={`Goto page ${pageNumber}`}
                   onClick={() => onPageChange(pageNumber)}
                   style={pageNumber === currentPage ? {backgroundColor:'azure', borderRadius: '30px', padding: '10px'} : {}}
@@ -108,7 +116,7 @@ const Pagination = ({ renderData }) => {
                 </Button>
               </li>
             );
-          })}
+          }) )}
 
           {/* right arrow */}
           <li key='right' className="pagination-item">

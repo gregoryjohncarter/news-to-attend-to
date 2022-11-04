@@ -6,7 +6,7 @@ import Col from 'react-bootstrap/Col';
 
 const Article = ({ title, description, url, publishedAt, source, keyIndex }) => {
   return (
-    <Row key={keyIndex}>
+    <Row>
       <Col xs={12}>
         <div className={keyIndex % 2 === 0 ? 'alternate' : 'article'}>
           <h2 className='title'>
@@ -15,7 +15,7 @@ const Article = ({ title, description, url, publishedAt, source, keyIndex }) => 
           <p className='description'>
             {description}
           </p>
-          <a href={url} target='_blank' className='trim'>
+          <a href={url} target='_blank' rel='noopener noreferrer' className='trim'>
             {url}
           </a>
           <p>

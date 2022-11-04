@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useStoreContext } from "../utils/GlobalState";
 
 import Sorting from '../components/Sorting';
@@ -6,13 +6,10 @@ import Sorting from '../components/Sorting';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 
 const SearchBar = ({ fetchNews }) => {
-  const [searchInput, setSearchInput] = useState('');
-
-  const [state, dispatch] = useStoreContext();
-  const { sorting } = state;
+  const [state] = useStoreContext();
+  const { sorting, filterBy } = state;
 
   return (
     <>
@@ -24,7 +21,7 @@ const SearchBar = ({ fetchNews }) => {
             </h3>
             <Button 
               variant='dark'
-              onClick={() => fetchNews(searchInput, sorting)}
+              onClick={() => fetchNews(sorting, filterBy)}
               className='btn-fetch'
             >
               ↳

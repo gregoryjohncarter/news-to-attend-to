@@ -8,7 +8,6 @@ import Container from 'react-bootstrap/Container';
 
 const Home = () => {
   const [state, dispatch] = useStoreContext();
-  const { newsAPIData, current, totalPages, filterBy } = state;
 
   const handleRenderData = (articles, current, pageCount, filterByToggle) => {
     let displayDataStart;
@@ -74,12 +73,17 @@ const Home = () => {
         newsAPIData: json.articles
       });
 
-      const pageCount = Math.floor(json.totalResults / 15) + 1;
-      json.pageCount = pageCount;
-
+      if (json.totalResults % 15 === 0) {
+        const pageCount = json.totalResults / 15;
+        json.pageCount = pageCount;
+      } else {
+        const pageCount = Math.floor(json.totalResults / 15) + 1;
+        json.pageCount = pageCount;
+      }
+      
       dispatch({
         type: 'SET_TOTAL_PAGES',
-        setTotalPages: pageCount
+        setTotalPages: json.pageCount
       });
 
       dispatch({
@@ -91,10 +95,10 @@ const Home = () => {
     }
   }
 
-  const fetchNews = (searchQuery, sorting) => {
+  const fetchNews = (sorting, filterBy) => {
     const apiKey = 'e4481f7edf634ba0b3755068bd11dfa9';
 
-    if (sorting === 'all') {
+    if (sorting === 'general') {
       fetch(`https://newsapi.org/v2/top-headlines?country=us&pageSize=100&apiKey=${apiKey}`)
         .then(response => response.json())
         .then(json => handleAPIData(json))
