@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useStoreContext } from "../utils/GlobalState";
 import usePagination, { DOTS } from "../hooks/usePagination";
 import { nanoid } from 'nanoid'
@@ -33,12 +33,15 @@ const Pagination = ({ renderData, combineSearch }) => {
     }
   }
 
+  useEffect(() => {
+    checkButtons(currentPage, totalPages);
+  }, [currentPage, totalPages])
+
   const onPageChange = (value) => {
     dispatch({
       type: 'CHANGE_PAGE',
       pageInput: value
     });
-    checkButtons(value, totalPages);
     renderData(newsAPIData, value, totalPages);
   }
 
@@ -47,7 +50,6 @@ const Pagination = ({ renderData, combineSearch }) => {
       type: 'NEXT_PAGE',
       pageInput: value
     });
-    checkButtons((value + 1), totalPages);
     renderData(newsAPIData, (value + 1), totalPages);
   };
 
@@ -56,7 +58,6 @@ const Pagination = ({ renderData, combineSearch }) => {
       type: 'PREVIOUS_PAGE',
       pageInput: value
     });
-    checkButtons((value - 1), totalPages);
     renderData(newsAPIData, (value - 1), totalPages);
   };
   
@@ -75,7 +76,7 @@ const Pagination = ({ renderData, combineSearch }) => {
               className='arrow-btn left'
               aria-label='Goto previous page'
               onClick={() => onPrevious(currentPage)}
-              disabled={disabledLeft}
+              disabled={combineSearch.length ? true : disabledLeft}
             >
               &lt;
             </Button>
@@ -125,7 +126,7 @@ const Pagination = ({ renderData, combineSearch }) => {
               className='arrow-btn right'
               aria-label='Goto next page'
               onClick={() => onNext(currentPage)}
-              disabled={disabledRight}
+              disabled={combineSearch.length ? true : disabledRight}
             >
               &gt;
             </Button>
