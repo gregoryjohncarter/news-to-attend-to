@@ -8,7 +8,7 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 
 const SearchBar = ({ fetchNews }) => {
-  const [state] = useStoreContext();
+  const [state, dispatch] = useStoreContext();
   const { sorting, filterBy } = state;
 
   return (

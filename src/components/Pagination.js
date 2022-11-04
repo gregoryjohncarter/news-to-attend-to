@@ -9,7 +9,7 @@ import Button from 'react-bootstrap/Button';
 
 const Pagination = ({ renderData, combineSearch }) => {
   const [state, dispatch] = useStoreContext();
-  const { newsAPIData, currentPage, totalPages } = state;
+  const { newsAPIData, currentPage, totalPages, filterBy } = state;
 
   const paginationRange = usePagination({
     currentPage,
@@ -42,7 +42,7 @@ const Pagination = ({ renderData, combineSearch }) => {
       type: 'CHANGE_PAGE',
       pageInput: value
     });
-    renderData(newsAPIData, value, totalPages);
+    renderData(newsAPIData, value, totalPages, filterBy);
   }
 
   const onNext = (value) => {
@@ -50,7 +50,7 @@ const Pagination = ({ renderData, combineSearch }) => {
       type: 'NEXT_PAGE',
       pageInput: value
     });
-    renderData(newsAPIData, (value + 1), totalPages);
+    renderData(newsAPIData, (value + 1), totalPages, filterBy);
   };
 
   const onPrevious = (value) => {
@@ -58,7 +58,7 @@ const Pagination = ({ renderData, combineSearch }) => {
       type: 'PREVIOUS_PAGE',
       pageInput: value
     });
-    renderData(newsAPIData, (value - 1), totalPages);
+    renderData(newsAPIData, (value - 1), totalPages, filterBy);
   };
   
   return (

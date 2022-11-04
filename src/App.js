@@ -1,6 +1,6 @@
 import React from 'react';
 import { StoreProvider } from "./utils/GlobalState";
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Home from './pages/Home';
 
