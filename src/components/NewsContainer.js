@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useStoreContext } from "../utils/GlobalState";
 
 import Article from '../components/Article';
@@ -6,23 +6,36 @@ import Pagination from '../components/Pagination';
 
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
 
 const NewsContainer = ({ renderData }) => {
   const [state, dispatch] = useStoreContext();
-  const { currentRender, filterBy } = state;
-  console.log(currentRender)
+  const { newsAPIData, currentRender, filterBy, totalPages } = state;
 
   const [filterQuery, setFilterQuery] = useState('');
   // console.log(filterQuery);
-  // console.log(filterBy + 'filterBy');
   
   const handleFilterBy = (value) => {
+    if (value === filterBy) {
+      return;
+    }
+
     dispatch({
       type: 'TOGGLE_FILTER_BY',
       filterByInput: value
     });
+
+    dispatch({
+      type: 'CHANGE_PAGE',
+      pageInput: 1
+    });
+
+    renderData(newsAPIData, 1, totalPages, value);
   }
+
+  // const renderFilterBy = useEffect(() => {
+  //   console.log('test')
+  //   renderData(newsAPIData, 1, totalPages, filterBy);
+  // }, [filterBy])
 
   return (
     <div className='news-container'>

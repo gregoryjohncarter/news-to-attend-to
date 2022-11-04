@@ -9,7 +9,7 @@ import Button from 'react-bootstrap/Button';
 
 const Pagination = ({ renderData }) => {
   const [state, dispatch] = useStoreContext();
-  const { newsAPIData, currentPage, totalPages } = state;
+  const { newsAPIData, currentPage, totalPages, sortBy } = state;
 
   const paginationRange = usePagination({
     currentPage,

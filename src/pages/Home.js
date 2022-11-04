@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useStoreContext } from "../utils/GlobalState";
 
 import SearchBar from '../components/SearchBar';
@@ -8,9 +8,9 @@ import Container from 'react-bootstrap/Container';
 
 const Home = () => {
   const [state, dispatch] = useStoreContext();
-  const { newsAPIData, current, totalPages } = state;
+  const { newsAPIData, current, totalPages, filterBy } = state;
 
-  const handleRenderData = (articles, current, pageCount) => {
+  const handleRenderData = (articles, current, pageCount, filterByToggle) => {
     let displayDataStart;
     if (current === 1) {
       displayDataStart = 0;
@@ -27,23 +27,43 @@ const Home = () => {
       displayDataEnd = 15 * current;
     }
 
-    if (articles.length / 15 === 1) {
-      dispatch({
-        type: 'DATA_TO_RENDER',
-        dataToRender: articles
-      });
-    } else if (articles.length < 15) {
-      dispatch({
-        type: 'DATA_TO_RENDER',
-        dataToRender: articles
-      });
+    if (articles.length <= 15) {
+      if (filterByToggle === 'alphabetically') {
+        let filter = articles.slice().sort(function(a, b) {
+          let textA = a.title.toUpperCase();
+          let textB = b.title.toUpperCase();
+          return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+        });
+        dispatch({
+          type: 'DATA_TO_RENDER',
+          dataToRender: filter
+        });
+      } else {
+        dispatch({
+          type: 'DATA_TO_RENDER',
+          dataToRender: articles
+        });
+      }
     } else {
-      // sets the boundaries for the current range displayed
-      let slice = articles.slice(displayDataStart, displayDataEnd);
-      dispatch({
-        type: 'DATA_TO_RENDER',
-        dataToRender: slice
-      });
+      if (filterByToggle === 'alphabetically') {
+        let filter = articles.slice().sort(function(a, b) {
+          let textA = a.title.toUpperCase();
+          let textB = b.title.toUpperCase();
+          return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+        });
+        let slice = filter.slice(displayDataStart, displayDataEnd);
+        dispatch({
+          type: 'DATA_TO_RENDER',
+          dataToRender: slice
+        });
+      } else {
+        // sets the boundaries for the current range displayed
+        let slice = articles.slice(displayDataStart, displayDataEnd);
+        dispatch({
+          type: 'DATA_TO_RENDER',
+          dataToRender: slice
+        });
+      }
     }
   }
 
@@ -78,13 +98,13 @@ const Home = () => {
       fetch(`https://newsapi.org/v2/top-headlines?country=us&pageSize=100&apiKey=${apiKey}`)
         .then(response => response.json())
         .then(json => handleAPIData(json))
-        .then(render => handleRenderData(render.articles, 1, render.pageCount))
+        .then(render => handleRenderData(render.articles, 1, render.pageCount, filterBy))
         .catch(error => console.error(error))
     } else {
       fetch(`https://newsapi.org/v2/top-headlines?country=us&category=${sorting}&pageSize=100&apiKey=${apiKey}`)
         .then(response => response.json())
         .then(json => handleAPIData(json))
-        .then(render => handleRenderData(render.articles, 1, render.pageCount))
+        .then(render => handleRenderData(render.articles, 1, render.pageCount, filterBy))
         .catch(error => console.error(error))
     }
   }
