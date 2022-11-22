@@ -7,4 +7,4 @@ Built using React with Hooks and Context API
 npm i from root directory to install packages and then npm run start to launch the React app
 
 # Screenshot
-<img src='./assets/screenshotNTATproj.png' alt='app screenshot'/>
+<img src='./src/assets/screenshotNTATproj.png' alt='app screenshot'/>
