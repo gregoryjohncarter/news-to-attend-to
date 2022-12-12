@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useStoreContext } from "../utils/GlobalState";
 
 import SearchBar from '../components/SearchBar';
@@ -8,6 +8,19 @@ import Container from 'react-bootstrap/Container';
 
 const Home = () => {
   const [state, dispatch] = useStoreContext();
+
+  const [loadData, setLoadData] = useState(false);
+  const [spinner, setSpinner] = useState(false);
+
+  useEffect(() => {
+    if (loadData) {
+      setSpinner((p) => !p);
+    } else {
+      setTimeout(() => {
+        setSpinner((p) => !p);
+      }, 1000);
+    }
+  }, [loadData])
 
   const handleRenderData = (articles, current, pageCount, filterByToggle) => {
     let displayDataStart;
@@ -95,22 +108,27 @@ const Home = () => {
     }
   }
 
-  const fetchNews = (sorting, filterBy) => {
-    const apiKey = 'e4481f7edf634ba0b3755068bd11dfa9';
-
-    if (sorting === 'general') {
-      fetch(`https://newsapi.org/v2/top-headlines?country=us&pageSize=100&apiKey=${apiKey}`)
-        .then(response => response.json())
-        .then(json => handleAPIData(json))
-        .then(render => handleRenderData(render.articles, 1, render.pageCount, filterBy))
-        .catch(error => console.error(error))
-    } else {
-      fetch(`https://newsapi.org/v2/top-headlines?country=us&category=${sorting}&pageSize=100&apiKey=${apiKey}`)
-        .then(response => response.json())
-        .then(json => handleAPIData(json))
-        .then(render => handleRenderData(render.articles, 1, render.pageCount, filterBy))
-        .catch(error => console.error(error))
+  const fetchNews = async (sorting, filterBy) => {
+    if (loadData) {
+      return;
     }
+    setLoadData(true);
+    const response = await fetch(`/search`, {
+      method: 'POST',
+      body: JSON.stringify({
+        sorting,
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    const json = await response.json();
+    const render = await handleAPIData(json);
+    if (render) {
+      setLoadData(false);
+    }
+    handleRenderData(json.articles, 1, json.pageCount, filterBy);
   }
 
   return (
@@ -121,7 +139,7 @@ const Home = () => {
         </span>
       </h2>
       <Container fluid='md' className='container-margin'>
-        <SearchBar fetchNews={fetchNews}/>
+        <SearchBar fetchNews={fetchNews} spinner={spinner}/>
         <NewsContainer renderData={handleRenderData}/>
       </Container>
     </>

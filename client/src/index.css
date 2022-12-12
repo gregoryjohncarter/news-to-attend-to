@@ -1,5 +1,5 @@
 body {
-  background-color: darkslategray !important;
+  background-color: #2f4f4f !important;
 }
 
 a {
@@ -127,6 +127,41 @@ a {
 
 .sorting {
   margin-top: 7px;
+}
+
+/* spinning load animation */
+.loading-animation {
+	width: 40px;
+  height: 40px;
+}
+
+@keyframes spin {
+	from { transform: rotate(0deg); }
+	to { transform: rotate(360deg); }
+}
+
+/* Spinning circle (inner circle) */
+.loading-animation .masked-circle {
+	width: 40px;
+	height: 40px;
+	border-radius: 24px;
+	border: 2px solid #b0b0b0;
+}
+
+/* Spinning circle mask */
+.loading-animation .mask {
+	width: 24px;
+	height: 24px;
+	overflow: hidden;
+}
+
+/* Spinner */
+.loading-animation .spinner {
+	left: 1px;
+	top: 1px;
+	width: 40px;
+	height: 40px;
+	animation: spin 1s infinite linear;
 }
 
 @media screen and (max-width: 980px) {
