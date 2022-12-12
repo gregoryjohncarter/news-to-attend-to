@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-router.post('/search', async (req, res) => {
+router.post('/', async (req, res) => {
   const sorting = req.body.sorting;
   const apiKey = 'e4481f7edf634ba0b3755068bd11dfa9';
   if (sorting === 'general') {
