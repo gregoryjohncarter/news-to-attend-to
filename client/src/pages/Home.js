@@ -8,19 +8,7 @@ import Container from 'react-bootstrap/Container';
 
 const Home = () => {
   const [state, dispatch] = useStoreContext();
-
-  const [loadData, setLoadData] = useState(false);
   const [spinner, setSpinner] = useState(false);
-
-  useEffect(() => {
-    if (loadData) {
-      setSpinner((p) => !p);
-    } else {
-      setTimeout(() => {
-        setSpinner((p) => !p);
-      }, 1000);
-    }
-  }, [loadData])
 
   const handleRenderData = (articles, current, pageCount, filterByToggle) => {
     let displayDataStart;
@@ -109,10 +97,10 @@ const Home = () => {
   }
 
   const fetchNews = async (sorting, filterBy) => {
-    if (loadData) {
+    if (spinner) {
       return;
     }
-    setLoadData(true);
+    setSpinner(true);
     const response = await fetch(`/search`, {
       method: 'POST',
       body: JSON.stringify({
@@ -126,7 +114,9 @@ const Home = () => {
     const json = await response.json();
     const render = await handleAPIData(json);
     if (render) {
-      setLoadData(false);
+      setTimeout(() => {
+        setSpinner(false);
+      }, 1000);
     }
     handleRenderData(json.articles, 1, json.pageCount, filterBy);
   }
