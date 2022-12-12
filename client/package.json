@@ -1,6 +1,6 @@
 {
-  "homepage": "https://gregoryjohncarter.github.io/news-to-attend-to/",
-  "name": "imsfeed",
+  "homepage": "https://news-to-attend-to.herokuapp.com/",
+  "name": "news-to-attend-to",
   "version": "0.1.0",
   "proxy": "http://localhost:3001",
   "private": true,
