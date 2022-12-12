@@ -6,5 +6,8 @@ Built using React with Hooks and Context API
 # Usage
 npm i from root directory to install packages and then npm run start to launch the React app
 
+# Deployed link
+<a href='https://news-to-attend-to.herokuapp.com/'>Heroku page</a>
+
 # Screenshot
-<img src='./src/assets/screenshotNTATproj.png' alt='app screenshot'/>
+<img src='./client/src/assets/screenshotNTATproj.png' alt='app screenshot'/>
