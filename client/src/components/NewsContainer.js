@@ -37,15 +37,26 @@ const NewsContainer = ({ renderData }) => {
   // react hook being used to store a separate, filtered list to state
   useEffect(() => {
     if (newsAPIData.length && filterQuery.length) {
-      // first filter to sort out null entries
-      const notNull = newsAPIData.filter((article) => {
-        return article.title !== null && article.description !== null && article.source.name !== null
-      })
-      // then check against the controlled input
-      const results = notNull.filter((article) => {
+      // change null entries to empty strings
+      const notNull = (newsData) => {
+        newsData.forEach((article) => {
+          if (article.title === null) {
+            article.title = "";
+          }
+          if (article.description === null) {
+            article.description = "";
+          }
+          if (article.author === null) {
+            article.author = "";
+          }
+        })
+        return newsData
+      }
+      // check against the input
+      const results = notNull(newsAPIData).filter((article) => {
         return article.title.toLowerCase().includes(filterQuery.toLowerCase())
         || article.description.toLowerCase().includes(filterQuery.toLowerCase())
-        || article.source.name.toLowerCase().includes(filterQuery.toLowerCase());
+        || article.author.toLowerCase().includes(filterQuery.toLowerCase());
       })
       if (filterBy === 'recently') {
         setSearchList(results);
@@ -98,7 +109,7 @@ const NewsContainer = ({ renderData }) => {
               description={article.description} 
               url={article.url}
               publishedAt={article.publishedAt}
-              source={article.source.name}
+              source={article.author}
               key={index}
               keyIndex={index}
             />
@@ -108,7 +119,7 @@ const NewsContainer = ({ renderData }) => {
               description={article.description} 
               url={article.url}
               publishedAt={article.publishedAt}
-              source={article.source.name}
+              source={article.author}
               key={index}
               keyIndex={index}
             />
