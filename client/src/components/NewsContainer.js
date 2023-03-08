@@ -6,6 +6,8 @@ import Pagination from '../components/Pagination';
 
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import ToggleButton from 'react-bootstrap/ToggleButton';
 
 const NewsContainer = ({ renderData }) => {
   const [state, dispatch] = useStoreContext();
@@ -46,8 +48,8 @@ const NewsContainer = ({ renderData }) => {
           if (article.description === null) {
             article.description = "";
           }
-          if (article.author === null) {
-            article.author = "";
+          if (article.source.name === null) {
+            article.source.name= "";
           }
         })
         return newsData
@@ -56,7 +58,7 @@ const NewsContainer = ({ renderData }) => {
       const results = notNull(newsAPIData).filter((article) => {
         return article.title.toLowerCase().includes(filterQuery.toLowerCase())
         || article.description.toLowerCase().includes(filterQuery.toLowerCase())
-        || article.author.toLowerCase().includes(filterQuery.toLowerCase());
+        || article.source.name.toLowerCase().includes(filterQuery.toLowerCase());
       })
       if (filterBy === 'recently') {
         setSearchList(results);
@@ -70,10 +72,17 @@ const NewsContainer = ({ renderData }) => {
     }
   }, [newsAPIData, filterQuery, filterBy])
 
+  const [radioValue, setRadioValue] = useState('1');
+
+  const radios = [
+    { name: '✗', value: '1' },
+    { name: '✔️', value: '2' }
+  ];
+
   return (
     <div className='news-container'>
       <div className='filter-area'>
-        <Col xs={7}>
+        <Col xs={5}>
           <Form className='padding-right'>
             <Form.Control 
               size='sm'
@@ -85,7 +94,26 @@ const NewsContainer = ({ renderData }) => {
             />
           </Form>
         </Col>
-        <Col xs={5}>
+        <Col xs={3}>
+          <ButtonGroup>
+            {radios.map((radio, idx) => (
+              <ToggleButton
+                key={idx}
+                id={`radio-${idx}`}
+                type="radio"
+                variant={idx % 2 ? 'outline-success' : 'outline-danger'}
+                name="radio"
+                value={radio.value}
+                checked={radioValue === radio.value}
+                onChange={(e) => setRadioValue(e.currentTarget.value)}
+              >
+                {radio.name}
+              </ToggleButton>
+            ))}
+          </ButtonGroup>
+          <p>Thumbnails</p>
+        </Col>
+        <Col xs={4}>
           <Form.Select
             size='sm'
             aria-label="filter By"
@@ -100,6 +128,7 @@ const NewsContainer = ({ renderData }) => {
           </Form.Select>
         </Col>
       </div>
+      {newsAPIData.length > 0 && <hr></hr>}
       <div className='inner-news-container'>
         <div className='inner-container'>
           {/* whenever there is a filter query present, prioritize that render */}
@@ -109,9 +138,10 @@ const NewsContainer = ({ renderData }) => {
               description={article.description} 
               url={article.url}
               publishedAt={article.publishedAt}
-              source={article.author}
+              source={article.source.name}
               key={index}
               keyIndex={index}
+              img={radioValue === '2' ? article.urlToImage : null}
             />
           }) : currentRender.map((article, index) => {
             return <Article 
@@ -119,9 +149,10 @@ const NewsContainer = ({ renderData }) => {
               description={article.description} 
               url={article.url}
               publishedAt={article.publishedAt}
-              source={article.author}
+              source={article.source.name}
               key={index}
               keyIndex={index}
+              img={radioValue === '2' ? article.urlToImage : null}
             />
           })}
         </div>

@@ -123,7 +123,7 @@ const Home = () => {
 
   return (
     <>
-      <h2 className='newsfeed-title'>Top US Headlines-  
+      <h2 className='newsfeed-title'>
         <span className='newsfeed-url'>
           https://newsapi.org/
         </span>
