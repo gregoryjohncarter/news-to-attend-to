@@ -12,11 +12,11 @@ import ToggleButton from 'react-bootstrap/ToggleButton';
 const NewsContainer = ({ renderData }) => {
   const [state, dispatch] = useStoreContext();
   const { newsAPIData, currentRender, filterBy, totalPages } = state;
-
+  
   // filter by text declarations - input & results
   const [filterQuery, setFilterQuery] = useState('');
   const [searchList, setSearchList] = useState([]);
-  
+
   // change between recent and alphabetical ordering
   const handleFilterBy = (value) => {
     if (value === filterBy) {

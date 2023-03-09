@@ -6,6 +6,10 @@ a {
   display: block;
 }
 
+.title {
+  font-family: 'Garamond';
+}
+
 .newsfeed-title {
   padding-left: 25px;
   font-family: sans-serif;
@@ -43,17 +47,21 @@ a {
 }
 
 .source {
-  padding-right: 25px;
+  padding-right: 20px;
   font-family: serif;
-  font-weight: bold;
   color:steelblue;
   margin-bottom: 15px;
+}
+
+img {
+  margin-bottom: 10px;
 }
 
 .article {
   background-color: #dfdfdf;
   border-top-left-radius: 20px;
   border-bottom-right-radius: 20px;
+  padding-bottom: 1px;
 }
 
 .alternate {
@@ -122,6 +130,7 @@ a {
 .fetch-news {
   background-color: grey;
   border-radius: 15px;
+  justify-content: center;
 }
 
 .overflow {
