@@ -80,8 +80,6 @@ const NewsContainer = ({ renderData }) => {
     { name: '✔️', value: '2' }
   ];
 
-  console.log(newsAPIData);
-
   return (
     <div className='news-container'>
       <div className='filter-area'>

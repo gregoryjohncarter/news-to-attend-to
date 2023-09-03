@@ -7,4 +7,4 @@ Built using React with Hooks and Context API
 <a href='https://news-to-attend-to.herokuapp.com/'>Heroku page</a>
 
 # Screenshot
-<img src='./client/src/assets/screenshotNTAT.png' alt='app screenshot'/>
+<img src='./client/src/assets/screenshotNTATproject.png' alt='app screenshot'/>
