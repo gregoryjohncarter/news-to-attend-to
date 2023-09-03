@@ -32,7 +32,7 @@ const SearchBar = ({ fetchNews, spinner }) => {
         <Col xs={7}>
           <div className='d-flex fetch-news'>
             <h3 className='btn-heading'>
-              Retrieve articles
+              Get articles
             </h3>
             {!spinner ? <Button 
               variant='dark'

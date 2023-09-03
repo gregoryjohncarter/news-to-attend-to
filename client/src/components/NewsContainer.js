@@ -60,6 +60,7 @@ const NewsContainer = ({ renderData }) => {
         || article.description.toLowerCase().includes(filterQuery.toLowerCase())
         || article.source.name.toLowerCase().includes(filterQuery.toLowerCase());
       })
+
       if (filterBy === 'recently') {
         setSearchList(results);
       } else {
@@ -78,6 +79,8 @@ const NewsContainer = ({ renderData }) => {
     { name: '✗', value: '1' },
     { name: '✔️', value: '2' }
   ];
+
+  console.log(newsAPIData);
 
   return (
     <div className='news-container'>

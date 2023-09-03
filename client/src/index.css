@@ -1,5 +1,8 @@
 body {
-  background-color: #2f4f4f !important;
+  background: radial-gradient(circle at 50% 100%, #dadada80 5%, #dadada 5% 10%, #dadada80 10% 15%, #dadada 15% 20%, #dadada80 20% 25%, #dadada 25% 30%, #dadada80 30% 35%, #dadada 35% 40%, transparent 40%), radial-gradient(circle at 100% 50%, #dadada80 5%, #dadada 5% 10%, #dadada80 10% 15%, #dadada 15% 20%, #dadada80 20% 25%, #dadada 25% 30%, #dadada80 30% 35%, #dadada 35% 40%, transparent 40%), radial-gradient(circle at 50% 0%, #dadada80 5%, #dadada 5% 10%, #dadada80 10% 15%, #dadada 15% 20%, #dadada80 20% 25%, #dadada 25% 30%, #dadada80 30% 35%, #dadada 35% 40%, transparent 40%), radial-gradient(circle at 0 50%, #dadada80 5%, #dadada 5% 10%, #dadada80 10% 15%, #dadada 15% 20%, #dadada80 20% 25%, #dadada 25% 30%, #dadada80 30% 35%, #dadada 35% 40%, transparent 40%);
+  background-size: 6em 6em;
+  background-color: #445d72;
+  opacity: 1
 }
 
 a {
@@ -19,7 +22,7 @@ a {
 
 .newsfeed-url {
   font-style:'italic';
-  color: #e6e5a4;
+  color: #46786a;
   font-family:'Times New Roman', Times, serif
 }
 

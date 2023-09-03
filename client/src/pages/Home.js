@@ -11,6 +11,9 @@ const Home = () => {
   const [spinner, setSpinner] = useState(false);
 
   const handleRenderData = (articles, current, pageCount, filterByToggle) => {
+    articles = articles.filter((article) => {
+      return article.title !== "[Removed]"
+    });
     let displayDataStart;
     if (current === 1) {
       displayDataStart = 0;
@@ -71,7 +74,9 @@ const Home = () => {
     if (json.totalResults > 0) {
       dispatch({
         type: 'DATA_STORE',
-        newsAPIData: json.articles
+        newsAPIData: json.articles.filter((article) => {
+         return article.title !== "[Removed]" 
+        })
       });
 
       if (json.totalResults % 15 === 0) {
