@@ -130,7 +130,7 @@ const Home = () => {
     <>
       <h2 className='newsfeed-title'>
         <span className='newsfeed-url'>
-          https://newsapi.org/
+          newsapi.org
         </span>
       </h2>
       <Container fluid='md' className='container-margin'>

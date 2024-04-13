@@ -76,8 +76,8 @@ const NewsContainer = ({ renderData }) => {
   const [radioValue, setRadioValue] = useState('1');
 
   const radios = [
-    { name: '✗', value: '1' },
-    { name: '✔️', value: '2' }
+    { name: 'bi bi-x', value: '1' },
+    { name: 'bi bi-check2', value: '2' }
   ];
 
   return (
@@ -108,11 +108,11 @@ const NewsContainer = ({ renderData }) => {
                 checked={radioValue === radio.value}
                 onChange={(e) => setRadioValue(e.currentTarget.value)}
               >
-                {radio.name}
+                <i className={radio.name}></i>
               </ToggleButton>
             ))}
           </ButtonGroup>
-          <p>Thumbnails</p>
+          <p>Images</p>
         </Col>
         <Col xs={4}>
           <Form.Select
