@@ -79,11 +79,17 @@ const Home = () => {
         })
       });
 
-      if (json.totalResults % 15 === 0) {
-        const pageCount = json.totalResults / 15;
+      if (json.articles.filter((article) => {
+        return article.title !== "[Removed]" 
+       }).length % 15 === 0) {
+        const pageCount = json.articles.filter((article) => {
+          return article.title !== "[Removed]" 
+         }).length / 15;
         json.pageCount = pageCount;
       } else {
-        const pageCount = Math.floor(json.totalResults / 15) + 1;
+        const pageCount = Math.floor(json.articles.filter((article) => {
+          return article.title !== "[Removed]" 
+         }).length / 15) + 1;
         json.pageCount = pageCount;
       }
       
